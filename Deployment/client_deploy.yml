@@ -2,19 +2,26 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: client-deployment
+  labels:
+    app: client-deployment
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: client
+      app: templates-client
   template:
     metadata:
       labels:
-        app: client
+        app: templates-client
     spec:
       containers:
-        - name: client
-           image: image_client1:latest
+      - name: client-container
+        imagePullPolicy: IfNotPresent
+        image: image_client1
+        ports:
+        - containerPort: 3000
+
+
 ---
 apiVersion: v1
 kind: Service
@@ -22,10 +29,9 @@ metadata:
   name: client-srv
 spec:
   selector:
-    app: client
+    app: client-srv
   ports:
-    - protocol: "TCP"
-      port: 80
+    - protocol: TCP
+      port: 3000
       targetPort: 3000
-  type: ClusterIP
-
+  type: NodePort

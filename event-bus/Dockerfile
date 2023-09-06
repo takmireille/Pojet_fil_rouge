@@ -1,9 +1,9 @@
-FROM node:lts-alpine3.18
+FROM node:alpine
 
-#RUN  sudo apt update
+WORKDIR /app
 
-WORKDIR  /app
-
-COPY  . .
+COPY . .
 
 RUN npm install
+
+CMD ["npm", "start"]
