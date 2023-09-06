@@ -17,7 +17,7 @@ spec:
       containers:
       - name: client-container
         imagePullPolicy: IfNotPresent
-        image: image_client1
+        image: image-client 
         ports:
         - containerPort: 3000
 
