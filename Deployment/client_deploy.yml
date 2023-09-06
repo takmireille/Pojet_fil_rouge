@@ -12,14 +12,14 @@ spec:
       labels:
         app: client
     spec:
-    containers:
+      containers:
         - name: client
-          image: image_client1:latest
+           image: image_client1:latest
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: client-service
+  name: client-srv
 spec:
   selector:
     app: client

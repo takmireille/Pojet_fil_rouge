@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: moderation-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: moderation
+  template:
+    metadata:
+      labels:
+        app: moderation
+    spec:
+      containers:
+        - name: moderation
+          image:imae_moderation : latest
+          ports:
+            - containerPort: 4003  # Port sur lequel votre application écoute
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: moderation-srv
+spec:
+  selector:
+    app: moderation
+  ports:
+    - protocol: TCP
+      port: 80  # Port du service
+      targetPort: 4003  # Port du conteneur
+  type: ClusterIP   
+

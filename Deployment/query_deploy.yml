@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: query-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: query
+  template:
+    metadata:
+      labels:
+        app: query
+    spec:
+      containers:
+        - name: query
+          image: image_query:latest
+          ports:
+            - containerPort: 40002  # Port sur lequel votre application ecoute
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: query-srv
+spec:
+  selector:
+    app: query
+  ports:
+    - protocol: TCP
+      port: 80  # Port du service
+      targetPort: 4002  # Port du conteneur
+  type: ClusterIP  
+
